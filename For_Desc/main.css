@@ -1111,37 +1111,56 @@
    - translateX(-100%) keeps the CENTRE slot in view
    - overflow:visible so side containers peek in from edges
 */
+/* ── Carousel track ── */
 .ice-cream-round-track {
   position: absolute;
   top: 7%;
-  left: 30%;           /* offset so translateX(-100%) centres correctly */
-  width: 300%;
-  height: 55%;
+  left: 21%;
+  width: 130%;
+  height: 60%;
   display: flex;
   align-items: center;
   will-change: transform;
   z-index: 2;
   overflow: visible;
-  width: 110%;
-  gap: 7%;
+  transform: translateX(-33.333%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
-/* Each slot is 1/3 of the 300% track = exactly 100% of page width */
+/* Each slot takes exactly 1/3 of the 300% track = 100% page width */
 .ice-cream-round-track-slot {
-  flex: 0 0 calc(100% / 3);
+  flex: 0 0 33.333%;
   height: 100%;
-  object-fit: contain;
-  padding: 0 22%;          /* narrows the image so sides peek in */
-  transform: scale(0.7) translateY(10px);
-  opacity: 0.5;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
 }
 
-/* Centre slot — full size, full opacity */
-.ice-cream-round-track-slot--main {
-  transform: scale(1) translateY(0);
+.ice-cream-round-track-slot.center{
+    margin-left: 5%;
+  margin-right: 5%;
+}
+
+.ice-cream-round-track-slot img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Side slots — smaller and faded */
+.ice-cream-round-track-slot.side img {
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+/* Centre slot — full size */
+.ice-cream-round-track-slot.center img {
+  transform: scale(1);
   opacity: 1;
-  padding: 0 15%;
+
 }
 
 /* ── Staggered reveal for text SVGs ── */
@@ -1221,6 +1240,9 @@
   0%, 100% { transform: translateX(0);  }
   50%      { transform: translateX(4px); }
 }
+
+
+
 /* **********************************Ice Cream Round Cup Animation code end********************************* */
 
 

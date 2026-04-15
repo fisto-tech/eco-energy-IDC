@@ -515,13 +515,26 @@ function iceCreamRoundCrossfadeBg(newSrc) {
 // translateX(-33%) = centre slot visible        ← default/resting
 // translateX(-66%) = next slot visible
 
+// ── Track slide out ───────────────────────────────────────────
 function iceCreamRoundSlideTrackOut(direction) {
   const t = iceCreamRoundEl.track;
-  t.style.transition = "transform 0.42s cubic-bezier(0.4,0,0.6,1)";
-  // next → slide left (negative), prev → slide right (positive)
-  t.style.transform  = direction === "next"
-    ? "translateX(-66.666%)"
-    : "translateX(0%)";
+  t.style.transition = "transform 0.5s cubic-bezier(0.4, 0, 0.6, 1)";
+
+  if (direction === "next") {
+    // Slide left — next slot comes into view
+    t.style.transform = "translateX(-66.666%)";
+  } else {
+    // Slide right — previous slot comes into view
+    t.style.transform = "translateX(0%)";
+  }
+}
+
+// ── Snap back to centre instantly, then settle ────────────────
+function iceCreamRoundSnapToCenter() {
+  const t = iceCreamRoundEl.track;
+  t.style.transition = "none";
+  t.style.transform  = "translateX(-33.333%)";
+  t.offsetWidth; // force reflow
 }
 
 function iceCreamRoundSnapAndSlideIn() {
@@ -575,35 +588,76 @@ function iceCreamRoundUpdateDots() {
   });
 }
 
+// ── Preload container images before transition ────────────────
+function iceCreamRoundPreloadImages(product) {
+  return new Promise((resolve) => {
+    let loaded = 0;
+    const sources = [
+      product.previousContainerImg,
+      product.currentContainerImg,
+      product.nextContainerImg
+    ];
+    const total = sources.length;
+
+    sources.forEach((src) => {
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= total) resolve();
+      };
+      img.src = src;
+    });
+
+    // Safety fallback
+    setTimeout(resolve, 1200);
+  });
+}
+
 // ── Master transition ─────────────────────────────────────────
+// ── Master transition (carousel slide) ────────────────────────
 function iceCreamRoundTransitionTo(newIndex, direction) {
   if (iceCreamRoundIsAnimating) return;
   iceCreamRoundIsAnimating = true;
 
   const product = iceCreamRoundProducts[newIndex];
 
-  // 1. Fade background immediately
-  iceCreamRoundCrossfadeBg(product.backgroundImg);
+  // 1. Preload next set of images
+  iceCreamRoundPreloadImages(product).then(() => {
 
-  // 2. Slide track out
-  iceCreamRoundSlideTrackOut(direction);
+    // 2. Crossfade background
+    iceCreamRoundCrossfadeBg(product.backgroundImg);
 
-  // 3. Mid-point: swap images + slide back in + reveal texts
-setTimeout(() => {
-    iceCreamRoundCurrentIndex = newIndex;
-    iceCreamRoundSwapImages(product);
-    iceCreamRoundSnapAndSlideIn();
-    iceCreamRoundFireReveals();
-    iceCreamRoundUpdateDots();
+    // 3. Slide the track out (carousel motion)
+    iceCreamRoundSlideTrackOut(direction);
 
-    // ── ADD THIS LINE ONLY ──
-    const icrLink = document.getElementById('ice-cream-round-360-link');
-    if (icrLink && product.lightboxUrl) icrLink.href = product.lightboxUrl;
+    // 4. After slide completes — swap images and snap back
+    setTimeout(() => {
 
-}, 340);
+      // Update index
+      iceCreamRoundCurrentIndex = newIndex;
 
-  // 4. Unlock
-  setTimeout(() => { iceCreamRoundIsAnimating = false; }, 860);
+      // Swap all image sources
+      iceCreamRoundSwapImages(product);
+
+      // Update lightbox link
+      const icrLink = document.getElementById('ice-cream-round-360-link');
+      if (icrLink && product.lightboxUrl) icrLink.href = product.lightboxUrl;
+
+      // Snap track back to centre instantly (no visible jump because images match)
+      iceCreamRoundSnapToCenter();
+
+      // Fire text reveals
+      iceCreamRoundFireReveals();
+      iceCreamRoundUpdateDots();
+
+      // Unlock after settle
+      setTimeout(() => {
+        iceCreamRoundIsAnimating = false;
+      }, 100);
+
+    }, 500); // ← matches the CSS transition duration (0.5s)
+
+  });
 }
 
 // ── Navigation ────────────────────────────────────────────────
@@ -650,11 +704,9 @@ function iceCreamRoundInit() {
     // 4. Reset all images to first product
     iceCreamRoundSwapImages(first);
 
-    // 5. Snap track to centre instantly (no animation)
-    iceCreamRoundEl.track.style.transition = "none";
-    iceCreamRoundEl.track.style.transform  = "translateX(-33.333%)";
-    iceCreamRoundEl.track.offsetWidth;     // force reflow
 
+// NEW:
+iceCreamRoundSnapToCenter();
     // 6. Fire entrance reveal animations
     iceCreamRoundFireReveals();
     iceCreamRoundUpdateDots();
@@ -696,7 +748,15 @@ roundprevBtn.addEventListener('click', () => {
 
 
 
-
+// ── Preload all product images upfront ────────────────────────
+(function () {
+  iceCreamRoundProducts.forEach((product) => {
+    ['backgroundImg', 'currentContainerImg', 'previousContainerImg', 'nextContainerImg'].forEach((key) => {
+      const img = new Image();
+      img.src = product[key];
+    });
+  });
+})();
 
 
 

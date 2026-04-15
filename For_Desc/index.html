@@ -2455,30 +2455,42 @@ onmouseout="this.style.transform='scale(1)'"  data-audio-path="../audios/IML-ice
                             alt="iml-ice-cream-round" class="icr-reveal-el absolute top-[5%] left-[33%] w-[40%]" />
 
                         
-                        <div id="ice-cream-round-track" class="ice-cream-round-track">
-                            <img id="ice-cream-round-previous-container-img"
-                                src="../global assets/Images/Ice-cream-round/125ml/125ml-container.webp"
-                                alt="100ml-container" class="absolute top-[25%] left-[-20%] w-[40%] " />
+                       <div id="ice-cream-round-track" class="ice-cream-round-track">
 
-                            <!-- wrap only the current (center) container in the <a> tag -->
-                            <a id="ice-cream-round-360-link"
-                                href="../lightBox/index.html#100-ml-ice-cream-round-container" target="_blank"
-                                class="no-flip-zone">
+    <!-- SLOT 1: Previous -->
+    <div class="ice-cream-round-track-slot side">
+        <img id="ice-cream-round-previous-container-img"
+            src="../global assets/Images/Ice-cream-round/125ml-false-bottom/125ml-false-bottom-container.webp"
+            alt="previous-container" />
+    </div>
 
-                                <img src="../global assets/Images/commonThings/360-animated-icon-Black.gif" alt="360-icon"
-                                    style="position:absolute; top:21%; left:64%; width:11%; cursor:pointer; z-index:4;" />
+    <!-- SLOT 2: Current (center) -->
+    <div class="ice-cream-round-track-slot center">
+        <a id="ice-cream-round-360-link"
+            href="../lightBox/index.html#100-ml-ice-cream-round-container"
+            target="_blank"
+            class="no-flip-zone"
+            style="position:relative; display:flex; align-items:center; justify-content:center;">
 
-                                <img id="ice-cream-round-current-container-img"
-                                    src="../global assets/Images/Ice-cream-round/100ml/100ml-container.webp"
-                                    alt="100ml-container" class=" absolute top-[25%] left-[30%] w-[40%]"
-                                    style="cursor:pointer;" />
+            <img src="../global assets/Images/commonThings/360-animated-icon-Black.gif"
+                alt="360-icon"
+                style="position:absolute; top:-5%; right:5%; width:18%; cursor:pointer; z-index:4;" />
 
-                            </a>
+            <img id="ice-cream-round-current-container-img"
+                src="../global assets/Images/Ice-cream-round/100ml/100ml-container.webp"
+                alt="current-container"
+                style="cursor:pointer;" />
+        </a>
+    </div>
 
-                            <img id="ice-cream-round-next-container-img"
-                                src="../global assets/Images/Ice-cream-round/115ml/115ml-container.webp"
-                                alt="100ml-container" class="absolute top-[25%] right-[-20%] w-[40%] " />
-                        </div>
+    <!-- SLOT 3: Next -->
+    <div class="ice-cream-round-track-slot side">
+        <img id="ice-cream-round-next-container-img"
+            src="../global assets/Images/Ice-cream-round/115ml/115ml-container.webp"
+            alt="next-container" />
+    </div>
+
+</div>
 
 
                         <img id="ice-cream-round-container-name"
