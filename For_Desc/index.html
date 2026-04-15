@@ -5160,6 +5160,46 @@ function TableOfContentAnimation() {
             background: #555;
         }
     </style>
+
+
+
+<script>
+// Signal parent when flipbook fully initializes
+$(document).ready(function() {
+    setTimeout(function() {
+        // Pre-load ALL page images eagerly before signaling ready
+        const allPageImages = document.querySelectorAll('.page img');
+        let pending = allPageImages.length;
+        
+        if (pending === 0) {
+            window.parent.postMessage({ action: 'contentReady' }, '*');
+            return;
+        }
+        
+        allPageImages.forEach(img => {
+            if (img.complete) {
+                pending--;
+                if (pending <= 0) {
+                    window.parent.postMessage({ action: 'contentReady' }, '*');
+                }
+            } else {
+                img.addEventListener('load', () => {
+                    pending--;
+                    if (pending <= 0) {
+                        window.parent.postMessage({ action: 'contentReady' }, '*');
+                    }
+                }, { once: true });
+                img.addEventListener('error', () => {
+                    pending--;
+                    if (pending <= 0) {
+                        window.parent.postMessage({ action: 'contentReady' }, '*');
+                    }
+                }, { once: true });
+            }
+        });
+    }, 300);
+});
+</script>
 </body>
 
 

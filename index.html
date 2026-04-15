@@ -256,118 +256,122 @@
     <div id="content"></div>
 
     <script>
-        const preloader  = document.getElementById("preloader");
-        const contentDiv = document.getElementById("content");
+     const preloader  = document.getElementById("preloader");
+const contentDiv = document.getElementById("content");
 
-        // ✅ STEP 2: Single flag — triggers after first image loads + 3s delay
-        let hideScheduled = false;
+let hideScheduled = false;
 
-        function scheduleHide() {
-            if (hideScheduled) return;   // run only once
-            hideScheduled = true;
+function scheduleHide() {
+    if (hideScheduled) return;
+    hideScheduled = true;
+    setTimeout(showContent, 2000); // 2 sec buffer after all images load
+}
 
-            // ✅ STEP 3: Wait 3 seconds after first image is detected, then hide
-            setTimeout(showContent, 3000);
-        }
+function showContent() {
+    preloader.classList.add("fade-out");
+    setTimeout(() => {
+        preloader.style.display = "none";
+    }, 800);
+}
 
-        // ✅ STEP 4: Watch the iframe for its first image to load
-        function waitForFirstImageInIframe(objectEl) {
-            try {
-                const iframeDoc = objectEl.contentDocument || objectEl.contentWindow?.document;
-                if (!iframeDoc) { scheduleHide(); return; }
+function waitForAllImagesInIframe(objectEl) {
+    try {
+        const iframeDoc = objectEl.contentDocument || objectEl.contentWindow?.document;
+        if (!iframeDoc) { scheduleHide(); return; }
 
-                const images = iframeDoc.getElementsByTagName('img');
+        const images = Array.from(iframeDoc.getElementsByTagName('img'));
 
-                if (images.length === 0) {
-                    // No images at all — just wait for iframe load then hide
-                    scheduleHide();
-                    return;
-                }
+        if (images.length === 0) { scheduleHide(); return; }
 
-                // Listen for the FIRST image to finish loading
-                Array.from(images).forEach((img) => {
-                    if (img.complete && img.naturalHeight !== 0) {
-                        scheduleHide();   // already loaded
-                    } else {
-                        img.addEventListener('load',  scheduleHide, { once: true });
-                        img.addEventListener('error', scheduleHide, { once: true });
-                    }
-                });
+        let loadedCount = 0;
+        const totalImages = images.length;
 
-            } catch (err) {
-                console.error('Iframe access error:', err);
+        function onImageSettled() {
+            loadedCount++;
+            if (loadedCount >= totalImages) {
                 scheduleHide();
             }
         }
 
-        // ✅ STEP 5: Load the content page
-        function load_home() {
-            var folderPath = 'For_Desc/index.html';
-            contentDiv.innerHTML = '<object type="text/html" data="' + folderPath + '" style="width:100%; height:600px;"></object>';
-
-            const objectEl = contentDiv.querySelector('object');
-
-            if (objectEl) {
-                objectEl.addEventListener('load', function () {
-                    // Give browser a moment to parse iframe DOM before checking images
-                    setTimeout(() => waitForFirstImageInIframe(objectEl), 300);
-                });
-
-                // ✅ STEP 6: Hard fallback — never show preloader longer than 12 seconds
-                setTimeout(() => scheduleHide(), 12000);
-            }
-        }
-
-        // ✅ STEP 7: Fade out and remove the preloader
-        function showContent() {
-            preloader.classList.add("fade-out");
-            setTimeout(() => {
-                preloader.style.display = "none";
-            }, 800);
-        }
-
-        // Fullscreen passthrough
-        const embedded = document.getElementById("content");
-        window.addEventListener("message", function (event) {
-            if (event.data && event.data.action === "toggleFullscreen") {
-                if (!document.fullscreenElement) {
-                    embedded.requestFullscreen?.() || embedded.webkitRequestFullscreen?.();
-                } else {
-                    document.exitFullscreen?.();
-                }
+        images.forEach((img) => {
+            if (img.complete) {
+                onImageSettled();
+            } else {
+                img.addEventListener('load',  onImageSettled, { once: true });
+                img.addEventListener('error', onImageSettled, { once: true });
             }
         });
 
-        window.onload = load_home;
+    } catch (err) {
+        console.error('Iframe access error:', err);
+        scheduleHide();
+    }
+}
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' ||
-                e.key === 'ArrowDown'  || e.key === 'ArrowUp') {
-                e.preventDefault();
-            }
+function load_home() {
+    var folderPath = 'For_Desc/index.html';
+    contentDiv.innerHTML = '<object type="text/html" data="' + folderPath +
+        '" style="width:100%; height:600px;"></object>';
 
-            if (e.target.matches('input, textarea')) return;
+    const objectEl = contentDiv.querySelector('object');
 
-            const objectEl = document.querySelector('#content object');
-            if (!objectEl) return;
-
-            switch(e.key) {
-                case 'ArrowRight':
-                case 'ArrowDown':
-                    objectEl.contentWindow.postMessage({ action: 'flipNext' }, '*');
-                    break;
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    objectEl.contentWindow.postMessage({ action: 'flipPrev' }, '*');
-                    break;
-                case 'Home':
-                    objectEl.contentWindow.postMessage({ action: 'flipFirst' }, '*');
-                    break;
-                case 'End':
-                    objectEl.contentWindow.postMessage({ action: 'flipLast' }, '*');
-                    break;
-            }
+    if (objectEl) {
+        objectEl.addEventListener('load', function () {
+            setTimeout(() => waitForAllImagesInIframe(objectEl), 500);
         });
+
+        // Hard fallback — never show preloader longer than 20 seconds
+        setTimeout(() => scheduleHide(), 20000);
+    }
+}
+
+// ===== MERGED MESSAGE LISTENER (both contentReady + fullscreen) =====
+const embedded = document.getElementById("content");
+window.addEventListener("message", function (event) {
+    if (!event.data || !event.data.action) return;
+
+    // Signal from inner flipbook: all images loaded
+    if (event.data.action === "contentReady") {
+        scheduleHide();
+    }
+
+    // Fullscreen toggle from inner flipbook
+    if (event.data.action === "toggleFullscreen") {
+        if (!document.fullscreenElement) {
+            embedded.requestFullscreen?.() || embedded.webkitRequestFullscreen?.();
+        } else {
+            document.exitFullscreen?.();
+        }
+    }
+});
+
+window.onload = load_home;
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' ||
+        e.key === 'ArrowDown'  || e.key === 'ArrowUp') {
+        e.preventDefault();
+    }
+    if (e.target.matches('input, textarea')) return;
+    const objectEl = document.querySelector('#content object');
+    if (!objectEl) return;
+    switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+            objectEl.contentWindow.postMessage({ action: 'flipNext' }, '*');
+            break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+            objectEl.contentWindow.postMessage({ action: 'flipPrev' }, '*');
+            break;
+        case 'Home':
+            objectEl.contentWindow.postMessage({ action: 'flipFirst' }, '*');
+            break;
+        case 'End':
+            objectEl.contentWindow.postMessage({ action: 'flipLast' }, '*');
+            break;
+    }
+});
     </script>
 </body>
 </html>
