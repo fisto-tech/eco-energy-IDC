@@ -20,7 +20,7 @@
   transform: translate(-50%, -50%) rotate(-25deg);
   /*width: clamp(120px, 25vw, 400px); */
   width: 50%;
-  opacity: 0.08; /* light watermark */
+  opacity: 15%; /* light watermark */
   pointer-events: none;
   z-index: 1;
 }
