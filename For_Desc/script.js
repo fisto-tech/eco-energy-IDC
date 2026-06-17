@@ -35,7 +35,7 @@ document.addEventListener('click', (e) => {
     const isMenuVisible = tocNav.classList.contains('show');
     const isClickInsideMenu = tocNav.contains(e.target);
     const isClickOnToggle = navToggle.contains(e.target);
-    
+
     if (isMenuVisible && !isClickInsideMenu && !isClickOnToggle) {
         closeMenu();
     }
@@ -108,7 +108,7 @@ document.querySelectorAll('.tb-link').forEach(link => {
 
 
 // Detect page change automatically in flipbook
-$('#flipbook').bind("turned", function(event, page) {
+$('#flipbook').bind("turned", function (event, page) {
     updateActiveThumbnail(page);
 });
 
@@ -132,7 +132,7 @@ function openMenu1() {
     tocNav1.classList.add('show');
     navOverlay1.classList.add('show');
     navToggle1.setAttribute('aria-expanded', 'true');
-}1
+} 1
 function closeMenu1() {
     navToggle1.classList.remove('open');
     tocNav1.classList.remove('show');
@@ -194,109 +194,109 @@ document.addEventListener('keydown', function (e) {
 
 // ****************************share button navbar functionality start************************** 
 
- var triggerIcon = document.getElementById('navMenuBarMobile');
-  var overlay = document.getElementById('navMobileOverlay');
+var triggerIcon = document.getElementById('navMenuBarMobile');
+var overlay = document.getElementById('navMobileOverlay');
 
-  function setIcon(iName) {
+function setIcon(iName) {
     if (iName == 'menu') {
-      triggerIcon.src = '../global assets/icons/doted-icon.svg';
-      triggerIcon.style.scale = 1;
-      triggerIcon.style.transform = 'translateY(-50%)';
+        triggerIcon.src = '../global assets/icons/doted-icon.svg';
+        triggerIcon.style.scale = 1;
+        triggerIcon.style.transform = 'translateY(-50%)';
     }
     else if (iName == 'close') {
-      triggerIcon.src = '../global assets/bottom-navbar/close-icon.svg';
-      triggerIcon.style.scale = .7;
-      triggerIcon.style.transform = 'translateY(-65%)';
+        triggerIcon.src = '../global assets/bottom-navbar/close-icon.svg';
+        triggerIcon.style.scale = .7;
+        triggerIcon.style.transform = 'translateY(-65%)';
     }
     else triggerIcon.src = '';
-  }
+}
 
-  function openOverlay() {
+function openOverlay() {
     if (overlay.classList.contains('nav-mobile-overlay--visible')) {
-      overlay.classList.remove('nav-mobile-overlay--visible');
-      setIcon('menu');
+        overlay.classList.remove('nav-mobile-overlay--visible');
+        setIcon('menu');
     }
     else {
-      overlay.classList.add('nav-mobile-overlay--visible');
-      setIcon('close');
+        overlay.classList.add('nav-mobile-overlay--visible');
+        setIcon('close');
     }
-  }
+}
 
-  function closeOverlay() {
+function closeOverlay() {
     overlay.classList.remove('nav-mobile-overlay--visible');
     setIcon('menu');
-  }
+}
 
-  triggerIcon.addEventListener('click', function (e) {
+triggerIcon.addEventListener('click', function (e) {
     e.preventDefault();
     e.stopPropagation();
     openOverlay();
-  });
+});
 
 
-  overlay
+overlay
     .querySelector('.nav-mobile-overlay__backdrop')
     .addEventListener('click', closeOverlay);
 
- const shareBtn = document.getElementById('shareBtn');
- const navMobileShareIcon = document.getElementById('navMobileShareIcon');
-        const shareModal = document.getElementById('shareModal');
-        const shareOverlay = document.getElementById('shareOverlay');
-        const closeBtn = document.getElementById('closeBtn');
-        const shareInput = document.getElementById('shareInput');
-        const copyBtn = document.getElementById('copyBtn');
-        const copiedMsg = document.getElementById('copiedMsg');
+const shareBtn = document.getElementById('shareBtn');
+const navMobileShareIcon = document.getElementById('navMobileShareIcon');
+const shareModal = document.getElementById('shareModal');
+const shareOverlay = document.getElementById('shareOverlay');
+const closeBtn = document.getElementById('closeBtn');
+const shareInput = document.getElementById('shareInput');
+const copyBtn = document.getElementById('copyBtn');
+const copiedMsg = document.getElementById('copiedMsg');
 
-        // Set link
-        shareInput.value = "https://adecoenergy.in/pages/catalogue";
+// Set link
+shareInput.value = "https://adecoenergy.in/pages/catalogue";
 
-        // Open modal
-        shareBtn.addEventListener('click', () => {
-            showShareMenu();
-        });
-       
+// Open modal
+shareBtn.addEventListener('click', () => {
+    showShareMenu();
+});
 
 
-        function showShareMenu() {
-            shareModal.classList.remove('hidden');
-            shareOverlay.classList.remove('hidden');
-            shareInput.select();
-        }
 
-        // Close modal
-        const closeModal = () => {
-            shareModal.classList.add('hidden');
-            shareOverlay.classList.add('hidden');
-        };
+function showShareMenu() {
+    shareModal.classList.remove('hidden');
+    shareOverlay.classList.remove('hidden');
+    shareInput.select();
+}
 
-        closeBtn.addEventListener('click', closeModal);
-        shareOverlay.addEventListener('click', closeModal);
+// Close modal
+const closeModal = () => {
+    shareModal.classList.add('hidden');
+    shareOverlay.classList.add('hidden');
+};
 
-        // Copy link
-        copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(shareInput.value).then(() => {
-                copiedMsg.classList.remove('hidden');
-                setTimeout(() => copiedMsg.classList.add('hidden'), 1500);
-            });
-        });
+closeBtn.addEventListener('click', closeModal);
+shareOverlay.addEventListener('click', closeModal);
 
-        // Social share functions
-        document.getElementById('whatsappBtn').addEventListener('click', () => {
-            const url = encodeURIComponent(shareInput.value);
-            window.open(`https://wa.me/?text=${url}`, '_blank');
-        });
+// Copy link
+copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(shareInput.value).then(() => {
+        copiedMsg.classList.remove('hidden');
+        setTimeout(() => copiedMsg.classList.add('hidden'), 1500);
+    });
+});
 
-        document.getElementById('twitterBtn').addEventListener('click', () => {
-            const url = encodeURIComponent(shareInput.value);
-            window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
-        });
+// Social share functions
+document.getElementById('whatsappBtn').addEventListener('click', () => {
+    const url = encodeURIComponent(shareInput.value);
+    window.open(`https://wa.me/?text=${url}`, '_blank');
+});
 
-        document.getElementById('facebookBtn').addEventListener('click', () => {
-            const url = encodeURIComponent(shareInput.value);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-        });
+document.getElementById('twitterBtn').addEventListener('click', () => {
+    const url = encodeURIComponent(shareInput.value);
+    window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
+});
 
-        // LinkedIn Share
+document.getElementById('facebookBtn').addEventListener('click', () => {
+    const url = encodeURIComponent(shareInput.value);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+});
+
+// LinkedIn Share
 document.getElementById('linkedInBtn').addEventListener('click', () => {
     const url = encodeURIComponent(shareInput.value);
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
@@ -317,14 +317,14 @@ mobileShareLinkInput.value = "https://adecoenergy.in/pages/catalogue";
 
 
 // Open modal - use desktop share modal for mobile too
-navMobileShareIcon.addEventListener('click', function() {
+navMobileShareIcon.addEventListener('click', function () {
     closeOverlay();
     showShareMenu(); // reuse the desktop share function
 });
 // Close modal
 function closeMobileShareMenu() {
-  mobileShareModal.classList.add('hidden');
-  mobileShareOverlay.classList.add('hidden');
+    mobileShareModal.classList.add('hidden');
+    mobileShareOverlay.classList.add('hidden');
 }
 
 mobileShareCloseBtn.addEventListener('click', closeMobileShareMenu);
@@ -332,57 +332,57 @@ mobileShareOverlay.addEventListener('click', closeMobileShareMenu);
 
 // Copy link
 mobileCopyLinkBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText(mobileShareLinkInput.value).then(() => {
-    mobileCopiedToast.classList.remove('hidden');
-    setTimeout(() => mobileCopiedToast.classList.add('hidden'), 1500);
-  });
+    navigator.clipboard.writeText(mobileShareLinkInput.value).then(() => {
+        mobileCopiedToast.classList.remove('hidden');
+        setTimeout(() => mobileCopiedToast.classList.add('hidden'), 1500);
+    });
 });
 
 // Social shares
 document.getElementById('waShareMobile').addEventListener('click', () => {
-  const url = encodeURIComponent(mobileShareLinkInput.value);
-  window.open(`https://wa.me/?text=${url}`, '_blank');
+    const url = encodeURIComponent(mobileShareLinkInput.value);
+    window.open(`https://wa.me/?text=${url}`, '_blank');
 });
 
 document.getElementById('twShareMobile').addEventListener('click', () => {
-  const url = encodeURIComponent(mobileShareLinkInput.value);
-  window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
+    const url = encodeURIComponent(mobileShareLinkInput.value);
+    window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
 });
 
 document.getElementById('fbShareMobile').addEventListener('click', () => {
-  const url = encodeURIComponent(mobileShareLinkInput.value);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    const url = encodeURIComponent(mobileShareLinkInput.value);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
 });
 
 document.getElementById('lnShareMobile').addEventListener('click', () => {
-  const url = encodeURIComponent(mobileShareLinkInput.value);
-  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+    const url = encodeURIComponent(mobileShareLinkInput.value);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
 });
 
 
 
-        // Close on Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+// Close on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
 
 
 
 
 
-        // ****************************share button navbar functionality end************************** ]
-        // ****************************music button navbar functionality start************************** 
+// ****************************share button navbar functionality end************************** ]
+// ****************************music button navbar functionality start************************** 
 // ==================== MUSIC/AUDIO FUNCTIONALITY (Alternative) ====================
 window.addEventListener('load', function () {
     const bgmAudio = document.getElementById('bgmAudio');
     const bgmButton = document.getElementById('bgmButton');
     const musicOnImg = document.getElementById('musicOnImg');
     const musicOffImg = document.getElementById('musicOffImg');
-    
+
     const mobileAudioIcon = document.getElementById('navMobileAudioIcon');
     const mobileAudioBtn = document.getElementById('mobileAudioBtn');
     const mobileAudioStatus = document.getElementById('mobileAudioStatus');
-    
+
     const MOBILE_MUSIC_ON_SRC = "../global assets/icons/music-on-icon.svg";
     const MOBILE_MUSIC_OFF_SRC = "../global assets/icons/music-off-icon.svg";
 
@@ -391,7 +391,7 @@ window.addEventListener('load', function () {
     }
 
     let isPlaying = false;
-    
+
     // Initially show "OFF" icon (music not playing)
     updateIcons(false);
 
@@ -462,62 +462,76 @@ window.addEventListener('load', function () {
             if (isPlaying) bgmAudio.pause();
         } else {
             if (wasPlayingBeforeHidden) {
-                bgmAudio.play().catch(() => {});
+                bgmAudio.play().catch(() => { });
             }
         }
     });
 
+    // Auto-play music on the first interaction anywhere on the document
+    let hasInteracted = false;
+    function playOnInteraction() {
+        if (!hasInteracted && !isPlaying && bgmAudio) {
+            hasInteracted = true;
+            bgmAudio.play().catch((e) => console.log('Autoplay interaction failed:', e));
+        }
+        document.removeEventListener('click', playOnInteraction);
+        document.removeEventListener('touchstart', playOnInteraction);
+    }
+    
+    document.addEventListener('click', playOnInteraction);
+    document.addEventListener('touchstart', playOnInteraction);
+
     window.toggleBgmMusic = toggleMusic;
 });
-        // ****************************music button navbar functionality start************************** 
+// ****************************music button navbar functionality start************************** 
 
 
 
 // *********************home button start**************
-    const goToPage1 = document.getElementById("goToPage1");
+const goToPage1 = document.getElementById("goToPage1");
 
-    goToPage1.addEventListener("click", function () {
-        if ($("#flipbook").turn) {
-            $("#flipbook").turn("page", 1);
-        }
+goToPage1.addEventListener("click", function () {
+    if ($("#flipbook").turn) {
+        $("#flipbook").turn("page", 1);
+    }
 
-        const audioPath = goToPage1.dataset.audioPath;
-        if (audioPath) {
-            const audio = new Audio(audioPath);
-            audio.play();
-        }
-    });
+    const audioPath = goToPage1.dataset.audioPath;
+    if (audioPath) {
+        const audio = new Audio(audioPath);
+        audio.play();
+    }
+});
 
 
-    // *********************home button end**************
+// *********************home button end**************
 
 
 
 
 $('#flipbook').bind('turned', function (event, page, view) {
 
-  // ✅ UPDATE PAGE COUNTER WITH LAST PAGE FIX
-  const totalPages = $('#flipbook').turn('pages');
-  const pageNoElement = document.getElementById('page-no');
-  
-  if (pageNoElement) {
-      if (page === 1) {
-          // First page (cover)
-          pageNoElement.textContent = `1 / ${totalPages}`;
-      } else if (page === totalPages) {
-          // Last page (back cover) - show single number
-          pageNoElement.textContent = `${totalPages} / ${totalPages}`;
-      } else if (page % 2 === 0) {
-          // Even page - show as spread
-          pageNoElement.textContent = `${page}-${page + 1} / ${totalPages}`;
-      } else {
-          // Odd page - show as spread
-          pageNoElement.textContent = `${page - 1}-${page} / ${totalPages}`;
-      }
-  }
-  
-  // Update active thumbnail (your existing code)
-  updateActiveThumbnail(page);
+    // ✅ UPDATE PAGE COUNTER WITH LAST PAGE FIX
+    const totalPages = $('#flipbook').turn('pages');
+    const pageNoElement = document.getElementById('page-no');
+
+    if (pageNoElement) {
+        if (page === 1) {
+            // First page (cover)
+            pageNoElement.textContent = `1 / ${totalPages}`;
+        } else if (page === totalPages) {
+            // Last page (back cover) - show single number
+            pageNoElement.textContent = `${totalPages} / ${totalPages}`;
+        } else if (page % 2 === 0) {
+            // Even page - show as spread
+            pageNoElement.textContent = `${page}-${page + 1} / ${totalPages}`;
+        } else {
+            // Odd page - show as spread
+            pageNoElement.textContent = `${page - 1}-${page} / ${totalPages}`;
+        }
+    }
+
+    // Update active thumbnail (your existing code)
+    updateActiveThumbnail(page);
 });
 
 
@@ -538,16 +552,16 @@ const closeSearchModal = document.getElementById('closeSearchModal');
 
 // Define your pages with search keywords
 const pages = [
-    { page: 1, title: "Home page", keywords: ["cover", "front", "home", "title", "Eco-Energy", "1" , ""] },
+    { page: 1, title: "Home page", keywords: ["cover", "front", "home", "title", "Eco-Energy", "1", ""] },
     { page: 2, title: "Introduction", keywords: ["intro", "introduction", "about us", "2"] },
-    { page: 3, title: "Chapter 1", keywords: [ "3", "table of content"] },
-    { page: 4, title: "Chapter 2", keywords: [ "4","5", "round containers", "round bucket"] },
-    { page: 6, title: "Chapter 3", keywords: [ "6","7", "IML Biryani Rectangle"] },
-    { page: 8, title: "Introduction", keywords: [ "8","9",  "sweet box", "tamper Evident"] },
-    { page: 10, title: "Chapter 1", keywords: [ "10","11", "Square bucket", "beverage cup"] },
-    { page: 12, title: "Chapter 2", keywords: [ "12","13", "Ice cream round", "Ice cream Oval"] },
-    { page: 14, title: "Chapter 2", keywords: [ "conclusion", "end", "14", "contact us"] },
-  
+    { page: 3, title: "Chapter 1", keywords: ["3", "table of content"] },
+    { page: 4, title: "Chapter 2", keywords: ["4", "5", "round containers", "round bucket"] },
+    { page: 6, title: "Chapter 3", keywords: ["6", "7", "IML Biryani Rectangle"] },
+    { page: 8, title: "Introduction", keywords: ["8", "9", "sweet box", "tamper Evident"] },
+    { page: 10, title: "Chapter 1", keywords: ["10", "11", "Square bucket", "beverage cup"] },
+    { page: 12, title: "Chapter 2", keywords: ["12", "13", "Ice cream round", "Ice cream Oval"] },
+    { page: 14, title: "Chapter 2", keywords: ["conclusion", "end", "14", "contact us"] },
+
 ];
 
 // ✅ CLOSE SEARCH FUNCTION
@@ -563,11 +577,11 @@ if (searchIcon) {
     searchIcon.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent immediate closure
         searchModal.classList.remove('hidden');
-        
+
         requestAnimationFrame(() => {
             searchModal.classList.add('show');
         });
-        
+
         searchInput.focus();
     });
 }
@@ -584,11 +598,11 @@ if (closeSearchModal) {
 document.addEventListener('click', (e) => {
     // Check if modal is visible
     const isModalVisible = !searchModal.classList.contains('hidden');
-    
+
     // Check if click is inside modal or on search icon
     const isClickInsideModal = searchModal.contains(e.target);
     const isClickOnSearchIcon = searchIcon && searchIcon.contains(e.target);
-    
+
     // Close if clicking outside and modal is open
     if (isModalVisible && !isClickInsideModal && !isClickOnSearchIcon) {
         closeSearch();
@@ -688,7 +702,7 @@ navMobileDownloadIcon.addEventListener("click", () => {
 });
 
 function startDownload() {
-    
+
     // 1. Show notification popup
     downloadPopup.classList.remove("hidden");
     setTimeout(() => {
@@ -743,36 +757,36 @@ function startDownload() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.svg-container').forEach(container => {
-    const src = container.getAttribute('data-src');
-    if (src) {
-      fetch(src)
-        .then(response => {
-          if (!response.ok) throw new Error(`Failed to load ${src}`);
-          return response.text();
-        })
-        .then(svgText => {
-          const parser = new DOMParser();
-          const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-          const svgEl = svgDoc.querySelector("svg");
-          if (svgEl) {
-            // Clean up SVG dimensions
-            svgEl.removeAttribute("width");
-            svgEl.removeAttribute("height");
-            svgEl.style.width = "100%";
-            svgEl.style.height = "100%";
-            svgEl.style.cursor = "pointer";
-            svgEl.classList.add("line-reveal9"); // keep your reveal animation
-          }
-          container.innerHTML = svgEl ? svgEl.outerHTML : svgText;
-        })
-        .catch(err => console.error("SVG Load Error:", err));
-    }
-  });
+    document.querySelectorAll('.svg-container').forEach(container => {
+        const src = container.getAttribute('data-src');
+        if (src) {
+            fetch(src)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Failed to load ${src}`);
+                    return response.text();
+                })
+                .then(svgText => {
+                    const parser = new DOMParser();
+                    const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+                    const svgEl = svgDoc.querySelector("svg");
+                    if (svgEl) {
+                        // Clean up SVG dimensions
+                        svgEl.removeAttribute("width");
+                        svgEl.removeAttribute("height");
+                        svgEl.style.width = "100%";
+                        svgEl.style.height = "100%";
+                        svgEl.style.cursor = "pointer";
+                        svgEl.classList.add("line-reveal9"); // keep your reveal animation
+                    }
+                    container.innerHTML = svgEl ? svgEl.outerHTML : svgText;
+                })
+                .catch(err => console.error("SVG Load Error:", err));
+        }
+    });
 
 
 
-  
+
 });
 
 
@@ -781,7 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ************************ Zoom In Zoom Out Code Start ******************************
 // ************************ COMPLETE ZOOM SYSTEM WITH BLOCK FUNCTIONALITY ************************
 
-(function() {
+(function () {
     'use strict';
 
     // ==================== ELEMENT REFERENCES ====================
@@ -964,7 +978,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
             document.body.appendChild(overlay);
-            
+
             // ❌ REMOVED: Click overlay to dismiss - popup only auto-hides now
         }
     }
@@ -972,30 +986,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==================== SHOW ZOOM ALERT ====================
     function showZoomAlert(title, message) {
         createZoomAlertElements();
-        
+
         const overlay = document.getElementById('zoom-alert-overlay');
         const alertBox = document.getElementById('zoom-alert-box');
-        
+
         if (!overlay || !alertBox) return;
-        
+
         // Update content
         const titleEl = alertBox.querySelector('.zoom-alert-title');
         const messageEl = alertBox.querySelector('.zoom-alert-message');
         const progressBar = alertBox.querySelector('.zoom-alert-progress-bar');
-        
+
         if (titleEl) titleEl.textContent = title || 'Action Blocked';
         if (messageEl) messageEl.innerHTML = message || 'Please zoom out first to use this feature';
-        
+
         // Reset progress bar animation
         if (progressBar) {
             progressBar.style.animation = 'none';
             progressBar.offsetHeight; // Trigger reflow
             progressBar.style.animation = 'progress-shrink 3s linear forwards';
         }
-        
+
         // Show overlay
         overlay.classList.add('show');
-        
+
         // Auto-hide after 3 seconds (ONLY way to close)
         clearTimeout(overlay.hideTimer);
         overlay.hideTimer = setTimeout(hideZoomAlert, 3000);
@@ -1013,11 +1027,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==================== BLOCK ACTION WHEN ZOOMED ====================
     function blockIfZoomed(e, title, message) {
         if (!isZoomed) return false;
-        
+
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
-        
+
         showZoomAlert(title, message);
         return true;
     }
@@ -1063,20 +1077,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update blocked elements visual state
         updateBlockedElementsState();
-        
+
         console.log(`📏 Zoom: ${currentZoom}% | Blocked: ${isZoomed ? 'YES' : 'NO'}`);
 
         // Add this inside your applyZoom function (at the end, before the console.log)
 
-// Hide/Show Page Controller based on zoom
-const pageController = document.querySelector('.page-controller');
-if (pageController) {
-    if (isZoomed) {
-        pageController.classList.add('zoom-hidden');
-    } else {
-        pageController.classList.remove('zoom-hidden');
-    }
-}
+        // Hide/Show Page Controller based on zoom
+        const pageController = document.querySelector('.page-controller');
+        if (pageController) {
+            if (isZoomed) {
+                pageController.classList.add('zoom-hidden');
+            } else {
+                pageController.classList.remove('zoom-hidden');
+            }
+        }
     }
 
     // ==================== UPDATE BLOCKED ELEMENTS VISUAL STATE ====================
@@ -1089,7 +1103,7 @@ if (pageController) {
             '.ui-arrow-next-page', '.ui-arrow-previous-page', '.next-arrow', '.prev-arrow',
             '#iconAutoplay' // ✅ ADDED: Autoplay icon
         ];
-        
+
         blockedSelectors.forEach(selector => {
             document.querySelectorAll(selector).forEach(el => {
                 if (isZoomed) {
@@ -1106,42 +1120,42 @@ if (pageController) {
     }
 
     // ==================== BLOCK HANDLERS ====================
-    
+
     // 🔒 TABLE OF CONTENTS
     function blockTOC(e) {
         if (blockIfZoomed(e, '📋 Table of Contents Blocked', 'Zoom out to access Table of Contents')) {
             return false;
         }
     }
-    
+
     // 🔒 THUMBNAIL NAVIGATION
     function blockThumbnail(e) {
         if (blockIfZoomed(e, '🖼️ Thumbnail Navigation Blocked', 'Zoom out to navigate using thumbnails')) {
             return false;
         }
     }
-    
+
     // 🔒 SEARCH
     function blockSearch(e) {
         if (blockIfZoomed(e, '🔍 Search Blocked', 'Zoom out to use the search feature')) {
             return false;
         }
     }
-    
+
     // 🔒 PAGE NAVIGATION (Next/Prev/First/Last)
     function blockPageNav(e) {
         if (blockIfZoomed(e, '📄 Page Navigation Blocked', 'Zoom out to navigate between pages')) {
             return false;
         }
     }
-    
+
     // 🔒 FLIPBOOK PAGE FLIP
     function blockFlip(e) {
         if (blockIfZoomed(e, '📖 Page Flip Blocked', 'Zoom out to flip pages')) {
             return false;
         }
     }
-    
+
     // 🔒 AUTOPLAY - NEW!
     function blockAutoplay(e) {
         if (blockIfZoomed(e, '▶️ Autoplay Blocked', 'Zoom out to use autoplay feature')) {
@@ -1151,7 +1165,7 @@ if (pageController) {
 
     // ==================== ATTACH BLOCK HANDLERS ====================
     function attachBlockHandlers() {
-        
+
         // ===== TABLE OF CONTENTS =====
         ['iconTOC', 'navToggle', 'mobileTocBtn'].forEach(id => {
             const el = document.getElementById(id);
@@ -1188,7 +1202,7 @@ if (pageController) {
                 el.addEventListener('touchstart', blockSearch, true);
             }
         });
-        
+
         document.querySelectorAll('img[alt="search-icon"]').forEach(el => {
             el.addEventListener('click', blockSearch, true);
             el.addEventListener('touchstart', blockSearch, true);
@@ -1219,12 +1233,12 @@ if (pageController) {
         // ===== FLIPBOOK DIRECT CLICKS (for page corners) =====
         if (flipbookContainer) {
             ['mousedown', 'touchstart'].forEach(eventType => {
-                flipbookContainer.addEventListener(eventType, function(e) {
+                flipbookContainer.addEventListener(eventType, function (e) {
                     if (isZoomed) {
-                        const isCornerClick = e.target.closest('.page') || 
-                                              e.target.closest('.p') ||
-                                              e.target.closest('.even') ||
-                                              e.target.closest('.odd');
+                        const isCornerClick = e.target.closest('.page') ||
+                            e.target.closest('.p') ||
+                            e.target.closest('.even') ||
+                            e.target.closest('.odd');
                         if (isCornerClick) {
                             blockFlip(e);
                         }
@@ -1235,7 +1249,7 @@ if (pageController) {
 
         // ===== TURN.JS EVENTS =====
         if (typeof $ !== 'undefined' && $('#flipbook').turn) {
-            $('#flipbook').bind('start', function(e, pageObject, corner) {
+            $('#flipbook').bind('start', function (e, pageObject, corner) {
                 if (isZoomed && corner) {
                     e.preventDefault();
                     showZoomAlert('📖 Page Flip Blocked', 'Zoom out to flip pages');
@@ -1243,7 +1257,7 @@ if (pageController) {
                 }
             });
 
-            $('#flipbook').bind('turning', function(e, page, view) {
+            $('#flipbook').bind('turning', function (e, page, view) {
                 if (isZoomed) {
                     e.preventDefault();
                     return false;
@@ -1262,7 +1276,7 @@ if (pageController) {
 
     // ==================== ZOOM BUTTON HANDLERS ====================
     if (zoomInBtn) {
-        zoomInBtn.addEventListener('click', function(e) {
+        zoomInBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             if (currentZoom < 150) {
                 applyZoom(currentZoom + 10);
@@ -1271,7 +1285,7 @@ if (pageController) {
     }
 
     if (zoomOutBtn) {
-        zoomOutBtn.addEventListener('click', function(e) {
+        zoomOutBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             if (currentZoom > 100) {
                 applyZoom(currentZoom - 10);
@@ -1280,13 +1294,13 @@ if (pageController) {
     }
 
     if (zoomSlider) {
-        zoomSlider.addEventListener('input', function(e) {
+        zoomSlider.addEventListener('input', function (e) {
             applyZoom(parseInt(e.target.value, 10));
         });
     }
 
     // ==================== KEYBOARD SHORTCUTS ====================
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // Ctrl/Cmd + Plus/Minus for zoom
         if (e.ctrlKey || e.metaKey) {
             if (e.key === '+' || e.key === '=') {
@@ -1300,7 +1314,7 @@ if (pageController) {
                 applyZoom(100);
             }
         }
-        
+
         // ESC to reset zoom
         if (e.key === 'Escape' && isZoomed) {
             applyZoom(100);
@@ -1310,14 +1324,14 @@ if (pageController) {
 
     // ==================== MOUSE WHEEL ZOOM ====================
     let wheelTimeout;
-    document.addEventListener('wheel', function(e) {
+    document.addEventListener('wheel', function (e) {
         if (e.ctrlKey || e.metaKey) {
             e.preventDefault();
             clearTimeout(wheelTimeout);
-            
+
             const delta = e.deltaY > 0 ? -10 : 10;
             const newZoom = Math.max(100, Math.min(150, currentZoom + delta));
-            
+
             wheelTimeout = setTimeout(() => {
                 applyZoom(newZoom);
             }, 10);
@@ -1334,7 +1348,7 @@ if (pageController) {
 
     // Wait for DOM and flipbook
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             setTimeout(init, 500);
         });
     } else {
@@ -1352,180 +1366,180 @@ if (pageController) {
 /* ========================================
    TOP ICON NAVIGATION FUNCTIONALITY
    ======================================== */
-document.addEventListener('DOMContentLoaded', function() {
-  
-  // Get all icon buttons
-  const iconTOC = document.getElementById('iconTOC');
-  const iconZoomOut = document.getElementById('iconZoomOut');
-  const iconZoomIn = document.getElementById('iconZoomIn');
-  const iconAudio = document.getElementById('iconAudio');
-  const iconPrevPage = document.getElementById('iconPrevPage');
-  const iconNextPage = document.getElementById('iconNextPage');
-  const iconSkipForward = document.getElementById('iconSkipForward');
-  const iconFrontPage = document.getElementById('iconFrontPage');
-  const iconRotate = document.getElementById('iconRotate');
-  const iconText = document.getElementById('iconText');
-  const iconFullscreen = document.getElementById('iconFullscreen');
+document.addEventListener('DOMContentLoaded', function () {
 
-  // ========== TABLE OF CONTENTS ==========
-  if (iconTOC && navToggle) {
-    iconTOC.addEventListener('click', function(e) {
-      e.stopPropagation();
-      navToggle.click(); // Trigger existing TOC
-    });
-  }
+    // Get all icon buttons
+    const iconTOC = document.getElementById('iconTOC');
+    const iconZoomOut = document.getElementById('iconZoomOut');
+    const iconZoomIn = document.getElementById('iconZoomIn');
+    const iconAudio = document.getElementById('iconAudio');
+    const iconPrevPage = document.getElementById('iconPrevPage');
+    const iconNextPage = document.getElementById('iconNextPage');
+    const iconSkipForward = document.getElementById('iconSkipForward');
+    const iconFrontPage = document.getElementById('iconFrontPage');
+    const iconRotate = document.getElementById('iconRotate');
+    const iconText = document.getElementById('iconText');
+    const iconFullscreen = document.getElementById('iconFullscreen');
 
-  // ========== ZOOM OUT ==========
-  if (iconZoomOut && zoomOutBtn) {
-    iconZoomOut.addEventListener('click', function() {
-      zoomOutBtn.click();
-    });
-  }
+    // ========== TABLE OF CONTENTS ==========
+    if (iconTOC && navToggle) {
+        iconTOC.addEventListener('click', function (e) {
+            e.stopPropagation();
+            navToggle.click(); // Trigger existing TOC
+        });
+    }
+
+    // ========== ZOOM OUT ==========
+    if (iconZoomOut && zoomOutBtn) {
+        iconZoomOut.addEventListener('click', function () {
+            zoomOutBtn.click();
+        });
+    }
 
 
-  // ========== ZOOM IN ==========
-  if (iconZoomIn && zoomInBtn) {
-    iconZoomIn.addEventListener('click', function() {
-      zoomInBtn.click();
-    });
-  }
+    // ========== ZOOM IN ==========
+    if (iconZoomIn && zoomInBtn) {
+        iconZoomIn.addEventListener('click', function () {
+            zoomInBtn.click();
+        });
+    }
 
-  // ========== AUDIO TOGGLE ==========
-  if (iconAudio && typeof toggleMusic === 'function') {
-    // Update icon based on music state
-    function updateAudioIcon() {
-      if (musicOn) {
-        iconAudio.classList.add('active');
-        iconAudio.innerHTML = `
+    // ========== AUDIO TOGGLE ==========
+    if (iconAudio && typeof toggleMusic === 'function') {
+        // Update icon based on music state
+        function updateAudioIcon() {
+            if (musicOn) {
+                iconAudio.classList.add('active');
+                iconAudio.innerHTML = `
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
           </svg>
         `;
-      } else {
-        iconAudio.classList.remove('active');
-        iconAudio.innerHTML = `
+            } else {
+                iconAudio.classList.remove('active');
+                iconAudio.innerHTML = `
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <line x1="23" y1="9" x2="17" y2="15"/>
             <line x1="17" y1="9" x2="23" y2="15"/>
           </svg>
         `;
-      }
-    }
-    
-    iconAudio.addEventListener('click', function() {
-      toggleMusic();
-      updateAudioIcon();
-    });
-    
-    // Initial state
-    updateAudioIcon();
-  }
-
-  // ========== PREVIOUS PAGE ==========
-  if (iconPrevPage) {
-    iconPrevPage.addEventListener('click', function() {
-      if ($('#flipbook').turn) {
-        $('#flipbook').turn('previous');
-      }
-    });
-  }
-
-  // ========== NEXT PAGE ==========
-  if (iconNextPage) {
-    iconNextPage.addEventListener('click', function() {
-      if ($('#flipbook').turn) {
-        $('#flipbook').turn('next');
-      }
-    });
-  }
-
-  // ========== SKIP FORWARD (Go to last page) ==========
-  if (iconSkipForward) {
-    iconSkipForward.addEventListener('click', function() {
-      if ($('#flipbook').turn) {
-        const totalPages = $('#flipbook').turn('pages');
-        $('#flipbook').turn('page', totalPages);
-      }
-    });
-  }
-
-  // ========== front PAGE (Example: Jump to specific page) ==========
-  if (iconFrontPage) {
-    iconFrontPage.addEventListener('click', function() {
-      const currentPage = $('#flipbook').turn('page');
-      const jumpTo = 1; // Jump 2 pages forward
-      const totalPages = $('#flipbook').turn('pages');
-      
-      if (jumpTo <= totalPages) {
-        $('#flipbook').turn('page', jumpTo);
-      }
-    });
-  }
-
-  // ========== ROTATE (Example: Rotate current view) ==========
-  if (iconRotate) {
-    let rotationAngle = 0;
-    iconRotate.addEventListener('click', function() {
-      rotationAngle = (rotationAngle + 90) % 360;
-      const flipbook = document.getElementById('flipbook');
-      if (flipbook) {
-        flipbook.style.transform = `rotate(${rotationAngle}deg)`;
-        flipbook.style.transition = 'transform 0.5s ease';
-      }
-    });
-  }
-
-  // ========== TEXT TOOL (Example: Toggle search) ==========
-  if (iconText && searchIcon) {
-    iconText.addEventListener('click', function() {
-      searchIcon.click(); // Trigger search modal
-    });
-  }
-
-  // ========== FULLSCREEN ==========
-  if (iconFullscreen) {
-    iconFullscreen.addEventListener('click', function() {
-      const fsBtn = document.getElementById('full-screen-btn');
-      if (fsBtn) {
-        fsBtn.click();
-      } else {
-        // Fallback: toggle fullscreen directly
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
-        } else {
-          document.exitFullscreen();
+            }
         }
-      }
-    });
-  }
 
-  // ========== UPDATE BUTTON STATES BASED ON PAGE ==========
-  if ($('#flipbook').turn) {
-  $('#flipbook').bind('turned', function (event, page) {
-    const totalPages = $('#flipbook').turn('pages');
+        iconAudio.addEventListener('click', function () {
+            toggleMusic();
+            updateAudioIcon();
+        });
 
-    // FIRST PAGE
-    if (page === 1 ) {
-      iconFrontPage?.setAttribute('disabled', true);
-      iconPrevPage?.setAttribute('disabled', true);
-    } else {
-      iconFrontPage?.removeAttribute('disabled');
-      iconPrevPage?.removeAttribute('disabled');
+        // Initial state
+        updateAudioIcon();
     }
 
-    // LAST PAGE
-    if (page === totalPages) {
-      iconNextPage?.setAttribute('disabled', true);
-      iconSkipForward?.setAttribute('disabled', true);
-    } else {
-      iconNextPage?.removeAttribute('disabled');
-      iconSkipForward?.removeAttribute('disabled');
+    // ========== PREVIOUS PAGE ==========
+    if (iconPrevPage) {
+        iconPrevPage.addEventListener('click', function () {
+            if ($('#flipbook').turn) {
+                $('#flipbook').turn('previous');
+            }
+        });
     }
-  });
-}
+
+    // ========== NEXT PAGE ==========
+    if (iconNextPage) {
+        iconNextPage.addEventListener('click', function () {
+            if ($('#flipbook').turn) {
+                $('#flipbook').turn('next');
+            }
+        });
+    }
+
+    // ========== SKIP FORWARD (Go to last page) ==========
+    if (iconSkipForward) {
+        iconSkipForward.addEventListener('click', function () {
+            if ($('#flipbook').turn) {
+                const totalPages = $('#flipbook').turn('pages');
+                $('#flipbook').turn('page', totalPages);
+            }
+        });
+    }
+
+    // ========== front PAGE (Example: Jump to specific page) ==========
+    if (iconFrontPage) {
+        iconFrontPage.addEventListener('click', function () {
+            const currentPage = $('#flipbook').turn('page');
+            const jumpTo = 1; // Jump 2 pages forward
+            const totalPages = $('#flipbook').turn('pages');
+
+            if (jumpTo <= totalPages) {
+                $('#flipbook').turn('page', jumpTo);
+            }
+        });
+    }
+
+    // ========== ROTATE (Example: Rotate current view) ==========
+    if (iconRotate) {
+        let rotationAngle = 0;
+        iconRotate.addEventListener('click', function () {
+            rotationAngle = (rotationAngle + 90) % 360;
+            const flipbook = document.getElementById('flipbook');
+            if (flipbook) {
+                flipbook.style.transform = `rotate(${rotationAngle}deg)`;
+                flipbook.style.transition = 'transform 0.5s ease';
+            }
+        });
+    }
+
+    // ========== TEXT TOOL (Example: Toggle search) ==========
+    if (iconText && searchIcon) {
+        iconText.addEventListener('click', function () {
+            searchIcon.click(); // Trigger search modal
+        });
+    }
+
+    // ========== FULLSCREEN ==========
+    if (iconFullscreen) {
+        iconFullscreen.addEventListener('click', function () {
+            const fsBtn = document.getElementById('full-screen-btn');
+            if (fsBtn) {
+                fsBtn.click();
+            } else {
+                // Fallback: toggle fullscreen directly
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+    }
+
+    // ========== UPDATE BUTTON STATES BASED ON PAGE ==========
+    if ($('#flipbook').turn) {
+        $('#flipbook').bind('turned', function (event, page) {
+            const totalPages = $('#flipbook').turn('pages');
+
+            // FIRST PAGE
+            if (page === 1) {
+                iconFrontPage?.setAttribute('disabled', true);
+                iconPrevPage?.setAttribute('disabled', true);
+            } else {
+                iconFrontPage?.removeAttribute('disabled');
+                iconPrevPage?.removeAttribute('disabled');
+            }
+
+            // LAST PAGE
+            if (page === totalPages) {
+                iconNextPage?.setAttribute('disabled', true);
+                iconSkipForward?.setAttribute('disabled', true);
+            } else {
+                iconNextPage?.removeAttribute('disabled');
+                iconSkipForward?.removeAttribute('disabled');
+            }
+        });
+    }
 
 });
 
@@ -1542,65 +1556,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(document).ready(function () {
 
-  const $flipbook = $('#flipbook');
-  const $pageInput = $('#pageInput');
-  const $totalPages = $('#totalPages');
-  const $goPageBtn = $('#goPageBtn');
+    const $flipbook = $('#flipbook');
+    const $pageInput = $('#pageInput');
+    const $totalPages = $('#totalPages');
+    const $goPageBtn = $('#goPageBtn');
 
-  // ========== FUNCTION: GO TO PAGE ==========
-  function goToPage() {
-    const totalPages = $flipbook.turn('pages');
-    let page = parseInt($pageInput.val(), 10);
+    // ========== FUNCTION: GO TO PAGE ==========
+    function goToPage() {
+        const totalPages = $flipbook.turn('pages');
+        let page = parseInt($pageInput.val(), 10);
 
-    // Validate page number
-    if (!page || page < 1) {
-      page = 1;
+        // Validate page number
+        if (!page || page < 1) {
+            page = 1;
+        }
+        if (page > totalPages) {
+            page = totalPages;
+        }
+
+        // Update input and go to page
+        $pageInput.val(page);
+        $flipbook.turn('page', page);
     }
-    if (page > totalPages) {
-      page = totalPages;
-    }
 
-    // Update input and go to page
-    $pageInput.val(page);
-    $flipbook.turn('page', page);
-  }
+    // ========== UPDATE INPUT WHEN PAGE TURNS ==========
+    $flipbook.on('turned', function (event, page) {
+        $pageInput.val(page);
+    });
 
-  // ========== UPDATE INPUT WHEN PAGE TURNS ==========
-  $flipbook.on('turned', function (event, page) {
-    $pageInput.val(page);
-  });
+    // ========== INITIALIZE TOTAL PAGES ==========
+    setTimeout(() => {
+        const totalPages = $flipbook.turn('pages');
 
-  // ========== INITIALIZE TOTAL PAGES ==========
-  setTimeout(() => {
-    const totalPages = $flipbook.turn('pages');
+        if (!totalPages) return;
 
-    if (!totalPages) return;
+        $totalPages.text(totalPages);
+        $pageInput.attr('max', totalPages);
 
-    $totalPages.text(totalPages);
-    $pageInput.attr('max', totalPages);
+        const currentPage = $flipbook.turn('page');
+        $pageInput.val(currentPage);
+    }, 300);
 
-    const currentPage = $flipbook.turn('page');
-    $pageInput.val(currentPage);
-  }, 300);
+    // ========== GO BUTTON CLICK ==========
+    $goPageBtn.on('click', function () {
+        goToPage();
+    });
 
-  // ========== GO BUTTON CLICK ==========
-  $goPageBtn.on('click', function () {
-    goToPage();
-  });
+    // ========== ENTER KEY TO GO ==========
+    $pageInput.on('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            goToPage();
+            $(this).blur(); // Remove focus
+        }
+    });
 
-  // ========== ENTER KEY TO GO ==========
-  $pageInput.on('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      goToPage();
-      $(this).blur(); // Remove focus
-    }
-  });
-
-  // ========== PREVENT INVALID INPUT ==========
-  $pageInput.on('input', function () {
-    this.value = this.value.replace(/[^0-9]/g, '');
-  });
+    // ========== PREVENT INVALID INPUT ==========
+    $pageInput.on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
 });
 
@@ -1616,74 +1630,74 @@ $(document).ready(function () {
 
 const SB_BUCKET_PRODUCTS = [
     {
-        heroImg:     '../global assets/Images/Square-bucket/1500-ml/container-img.webp',
-        textImg:     '../global assets/Images/Square-bucket/1500-ml/1500-ml-text-content.svg',
-        SBTopIconImg:     '../global assets/Images/Square-bucket/1500-ml/top-icon.svg',
-        SBBottomIconImg:     '../global assets/Images/Square-bucket/1500-ml/bottom-icon.svg',
-        SBHeightIconImg:     '../global assets/Images/Square-bucket/1500-ml/height-icon.svg',
+        heroImg: '../global assets/Images/Square-bucket/1500-ml/container-img.webp',
+        textImg: '../global assets/Images/Square-bucket/1500-ml/1500-ml-text-content.svg',
+        SBTopIconImg: '../global assets/Images/Square-bucket/1500-ml/top-icon.svg',
+        SBBottomIconImg: '../global assets/Images/Square-bucket/1500-ml/bottom-icon.svg',
+        SBHeightIconImg: '../global assets/Images/Square-bucket/1500-ml/height-icon.svg',
         lightboxUrl: '../lightBox/index.html#1500-ml-square-bucket',
         shadowColor: '#FCFFB2',
-        gradStart:   '#BEA225',
-        gradEnd:     '#EFF461'
+        gradStart: '#BEA225',
+        gradEnd: '#EFF461'
     },
-   
+
     {
-        heroImg:     '../global assets/Images/Square-bucket/2000-ml-square/container-img.webp',
-        textImg:     '../global assets/Images/Square-bucket/2000-ml-square/2000-ml-square-text-image.svg',
-        SBTopIconImg:     '../global assets/Images/Square-bucket/2000-ml-square/top-icon.svg',
-        SBBottomIconImg:     '../global assets/Images/Square-bucket/2000-ml-square/bottom-icon.svg',
-        SBHeightIconImg:     '../global assets/Images/Square-bucket/2000-ml-square/height-icon.svg',
+        heroImg: '../global assets/Images/Square-bucket/2000-ml-square/container-img.webp',
+        textImg: '../global assets/Images/Square-bucket/2000-ml-square/2000-ml-square-text-image.svg',
+        SBTopIconImg: '../global assets/Images/Square-bucket/2000-ml-square/top-icon.svg',
+        SBBottomIconImg: '../global assets/Images/Square-bucket/2000-ml-square/bottom-icon.svg',
+        SBHeightIconImg: '../global assets/Images/Square-bucket/2000-ml-square/height-icon.svg',
         lightboxUrl: '../lightBox/index.html#2000-ml-square-bucket',
         shadowColor: '#EDF6C9',
-        gradStart:   '#6AA700',
-        gradEnd:     '#EDF6C9'
+        gradStart: '#6AA700',
+        gradEnd: '#EDF6C9'
     },
     {
-        heroImg:     '../global assets/Images/Square-bucket/4500-ml-square/container-img.webp',
-        textImg:     '../global assets/Images/Square-bucket/4500-ml-square/4500-ml-square-text-content.svg',
-        SBTopIconImg:     '../global assets/Images/Square-bucket/4500-ml-square/top-icon.svg',
-        SBBottomIconImg:     '../global assets/Images/Square-bucket/4500-ml-square/bottom-icon.svg',
-        SBHeightIconImg:     '../global assets/Images/Square-bucket/4500-ml-square/height-icon.svg',
+        heroImg: '../global assets/Images/Square-bucket/4500-ml-square/container-img.webp',
+        textImg: '../global assets/Images/Square-bucket/4500-ml-square/4500-ml-square-text-content.svg',
+        SBTopIconImg: '../global assets/Images/Square-bucket/4500-ml-square/top-icon.svg',
+        SBBottomIconImg: '../global assets/Images/Square-bucket/4500-ml-square/bottom-icon.svg',
+        SBHeightIconImg: '../global assets/Images/Square-bucket/4500-ml-square/height-icon.svg',
         lightboxUrl: '../lightBox/index.html#4500-ml-square-bucket',
         shadowColor: '#F6C9F0',
-        gradStart:   '#CB55BB',
-        gradEnd:     '#F6C9F0'
-    },
-     {
-        heroImg:     '../global assets/Images/Square-bucket/2ltr-ghee/container-img.webp',
-        textImg:     '../global assets/Images/Square-bucket/2ltr-ghee/2-ltr-ghee-text-content.svg',
-        SBTopIconImg:     '../global assets/Images/Square-bucket/2ltr-ghee/top-icon.svg',
-        SBBottomIconImg:     '../global assets/Images/Square-bucket/2ltr-ghee/bottom-icon.svg',
-        SBHeightIconImg:     '../global assets/Images/Square-bucket/2ltr-ghee/height-icon.svg',
-        lightboxUrl: '../lightBox/index.html#2-ltr-ghee-square-bucket',
-        shadowColor: '#f3d79c',
-        gradStart:   '#c78f2b',
-        gradEnd:     '#e6b35a'
+        gradStart: '#CB55BB',
+        gradEnd: '#F6C9F0'
     },
     {
-        heroImg:     '../global assets/Images/Square-bucket/5ltr-ghee/container-img.webp',
-        textImg:     '../global assets/Images/Square-bucket/5ltr-ghee/5ltr-ghee-text-content.svg',
-        SBTopIconImg:     '../global assets/Images/Square-bucket/5ltr-ghee/top-icon.svg',
-        SBBottomIconImg:     '../global assets/Images/Square-bucket/5ltr-ghee/bottom-icon.svg',
-        SBHeightIconImg:     '../global assets/Images/Square-bucket/5ltr-ghee/height-icon.svg',
+        heroImg: '../global assets/Images/Square-bucket/2ltr-ghee/container-img.webp',
+        textImg: '../global assets/Images/Square-bucket/2ltr-ghee/2-ltr-ghee-text-content.svg',
+        SBTopIconImg: '../global assets/Images/Square-bucket/2ltr-ghee/top-icon.svg',
+        SBBottomIconImg: '../global assets/Images/Square-bucket/2ltr-ghee/bottom-icon.svg',
+        SBHeightIconImg: '../global assets/Images/Square-bucket/2ltr-ghee/height-icon.svg',
+        lightboxUrl: '../lightBox/index.html#2-ltr-ghee-square-bucket',
+        shadowColor: '#f3d79c',
+        gradStart: '#c78f2b',
+        gradEnd: '#e6b35a'
+    },
+    {
+        heroImg: '../global assets/Images/Square-bucket/5ltr-ghee/container-img.webp',
+        textImg: '../global assets/Images/Square-bucket/5ltr-ghee/5ltr-ghee-text-content.svg',
+        SBTopIconImg: '../global assets/Images/Square-bucket/5ltr-ghee/top-icon.svg',
+        SBBottomIconImg: '../global assets/Images/Square-bucket/5ltr-ghee/bottom-icon.svg',
+        SBHeightIconImg: '../global assets/Images/Square-bucket/5ltr-ghee/height-icon.svg',
         lightboxUrl: '../lightBox/index.html#5-ltr-ghee-square-bucket',
         shadowColor: '#C9D0F6',
-        gradStart:   '#5559CB',
-        gradEnd:     '#C9D0F6'
+        gradStart: '#5559CB',
+        gradEnd: '#C9D0F6'
     }
 ];
 
 const SBH_TOTAL = SB_BUCKET_PRODUCTS.length;  // ✅ FIXED
 
 const SBH_SLOT_CLASSES = [
-    'sb-hslot-0','sb-hslot-1','sb-hslot-2','sb-hslot-3','sb-hslot-4',
-    'sb-hexit-right','sb-hexit-left',
-    'sb-henter-right','sb-henter-left'
+    'sb-hslot-0', 'sb-hslot-1', 'sb-hslot-2', 'sb-hslot-3', 'sb-hslot-4',
+    'sb-hexit-right', 'sb-hexit-left',
+    'sb-henter-right', 'sb-henter-left'
 ];
 
-let sbhCenter    = 0;
+let sbhCenter = 0;
 let sbhAnimating = false;
-let sbhTimer     = null;
+let sbhTimer = null;
 const SBH_AUTO_DELAY = 5000;
 
 function sbhClearSlot(el) {
@@ -1734,15 +1748,15 @@ function sbhApplySlots(center, skipTransition) {
 }
 
 function sbhScrollLeft(steps, onComplete) {
-    const newCenter  = (sbhCenter + steps + SBH_TOTAL) % SBH_TOTAL;
+    const newCenter = (sbhCenter + steps + SBH_TOTAL) % SBH_TOTAL;
     const oldVisible = sbhGetVisible(sbhCenter);
     const newVisible = sbhGetVisible(newCenter);
-    const oldSet     = new Set(oldVisible);
-    const newSet     = new Set(newVisible);
+    const oldSet = new Set(oldVisible);
+    const newSet = new Set(newVisible);
 
-    const exiting  = oldVisible.filter(i => !newSet.has(i));
+    const exiting = oldVisible.filter(i => !newSet.has(i));
     const entering = newVisible.filter(i => !oldSet.has(i));
-    const staying  = newVisible.filter(i =>  oldSet.has(i));
+    const staying = newVisible.filter(i => oldSet.has(i));
 
     exiting.forEach(idx => {
         const el = sbhEl(idx);
@@ -1793,15 +1807,15 @@ function sbhScrollLeft(steps, onComplete) {
 }
 
 function sbhScrollRight(steps, onComplete) {
-    const newCenter  = (sbhCenter - steps + SBH_TOTAL) % SBH_TOTAL;
+    const newCenter = (sbhCenter - steps + SBH_TOTAL) % SBH_TOTAL;
     const oldVisible = sbhGetVisible(sbhCenter);
     const newVisible = sbhGetVisible(newCenter);
-    const oldSet     = new Set(oldVisible);
-    const newSet     = new Set(newVisible);
+    const oldSet = new Set(oldVisible);
+    const newSet = new Set(newVisible);
 
-    const exiting  = oldVisible.filter(i => !newSet.has(i));
+    const exiting = oldVisible.filter(i => !newSet.has(i));
     const entering = newVisible.filter(i => !oldSet.has(i));
-    const staying  = newVisible.filter(i =>  oldSet.has(i));
+    const staying = newVisible.filter(i => oldSet.has(i));
 
     exiting.forEach(idx => {
         const el = sbhEl(idx);
@@ -1855,29 +1869,29 @@ function sbhGetDirection(clickedIdx) {
     const visible = sbhGetVisible(sbhCenter);
     const slotPos = visible.indexOf(clickedIdx);
     if (slotPos < 2) return { direction: 'right', steps: 2 - slotPos };
-    if (slotPos > 2) return { direction: 'left',  steps: slotPos - 2 };
+    if (slotPos > 2) return { direction: 'left', steps: slotPos - 2 };
     return { direction: 'left', steps: 0 };
 }
 
 function sbhUpdateContent(productIdx) {
     const p = SB_BUCKET_PRODUCTS[productIdx];
 
-    const heroEl    = document.getElementById('square-bucket-hero-img');
-    const textEl    = document.getElementById('square-bucket-text-img');
+    const heroEl = document.getElementById('square-bucket-hero-img');
+    const textEl = document.getElementById('square-bucket-text-img');
     // ✅ Add these inside sbhUpdateContent()
-const SBTopIconEl    = document.getElementById('square-bucket-topIcon-img');
-const SBBottomIconEl = document.getElementById('square-bucket-bottomIcon-img');
-const SBHeightIconEl = document.getElementById('square-bucket-heightIcon-img');
-    const linkEl    = document.getElementById('square-bucket-360-link');
-    const shadow    = document.getElementById('square-bucket-bg-shadow-path');
+    const SBTopIconEl = document.getElementById('square-bucket-topIcon-img');
+    const SBBottomIconEl = document.getElementById('square-bucket-bottomIcon-img');
+    const SBHeightIconEl = document.getElementById('square-bucket-heightIcon-img');
+    const linkEl = document.getElementById('square-bucket-360-link');
+    const shadow = document.getElementById('square-bucket-bg-shadow-path');
     const gradStop1 = document.getElementById('square-bucket-grad-stop-1');
     const gradStop2 = document.getElementById('square-bucket-grad-stop-2');
 
     if (!heroEl || !textEl) return;
 
-    if (shadow)    gsap.to(shadow,    { attr: { fill: p.shadowColor },          duration: 0.6 });
-    if (gradStop1) gsap.to(gradStop1, { attr: { 'stop-color': p.gradStart },    duration: 0.6 });
-    if (gradStop2) gsap.to(gradStop2, { attr: { 'stop-color': p.gradEnd },      duration: 0.6 });
+    if (shadow) gsap.to(shadow, { attr: { fill: p.shadowColor }, duration: 0.6 });
+    if (gradStop1) gsap.to(gradStop1, { attr: { 'stop-color': p.gradStart }, duration: 0.6 });
+    if (gradStop2) gsap.to(gradStop2, { attr: { 'stop-color': p.gradEnd }, duration: 0.6 });
 
     gsap.to([heroEl, textEl, SBTopIconEl, SBBottomIconEl, SBHeightIconEl], {
         opacity: 0, duration: 0.25,
@@ -1940,21 +1954,21 @@ function sbhBindClicks() {
 }
 
 function squareBucketIntroAnimation() {
-    sbhCenter    = 0;
+    sbhCenter = 0;
     sbhAnimating = false;
     sbhStopTimer();
 
     sbhApplySlots(0, true);
 
     const p0 = SB_BUCKET_PRODUCTS[0];
-    const s  = document.getElementById('square-bucket-bg-shadow-path');
+    const s = document.getElementById('square-bucket-bg-shadow-path');
     const g1 = document.getElementById('square-bucket-grad-stop-1');
     const g2 = document.getElementById('square-bucket-grad-stop-2');
-    if (s)  s.setAttribute('fill', p0.shadowColor);
+    if (s) s.setAttribute('fill', p0.shadowColor);
     if (g1) g1.setAttribute('stop-color', p0.gradStart);
     if (g2) g2.setAttribute('stop-color', p0.gradEnd);
 
-    const p      = SB_BUCKET_PRODUCTS[0]; 
+    const p = SB_BUCKET_PRODUCTS[0];
     const heroEl = document.getElementById('square-bucket-hero-img');
     const textEl = document.getElementById('square-bucket-text-img');
     const SBTopIconEl = document.getElementById('square-bucket-topIcon-img');
@@ -1974,20 +1988,20 @@ function squareBucketIntroAnimation() {
 
     const tl = gsap.timeline({ onComplete: () => sbhStartTimer() });
 
-    tl.from('#square-bucket-logo',          { opacity: 0, y: -30, duration: 0.6 })
-      .from('#square-bucket-title-text',    { opacity: 0, y: -20, duration: 0.5 }, '-=0.3')
-      .from('#square-bucket-subtitle-text', { opacity: 0, y: -15, duration: 0.5 }, '-=0.2')
-      .from('#square-bucket-color-bg',      { opacity: 0, x: -100, duration: 0.7 }, '-=0.3')
-      .fromTo(textEl,
+    tl.from('#square-bucket-logo', { opacity: 0, y: -30, duration: 0.6 })
+        .from('#square-bucket-title-text', { opacity: 0, y: -20, duration: 0.5 }, '-=0.3')
+        .from('#square-bucket-subtitle-text', { opacity: 0, y: -15, duration: 0.5 }, '-=0.2')
+        .from('#square-bucket-color-bg', { opacity: 0, x: -100, duration: 0.7 }, '-=0.3')
+        .fromTo(textEl,
             { opacity: 0, x: -60 },
             { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
-      .fromTo(heroEl,
+        .fromTo(heroEl,
             { opacity: 0, x: 80 },
             { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
-      .fromTo('#square-bucket-icons',
+        .fromTo('#square-bucket-icons',
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
-      .fromTo([SBTopIconEl, SBBottomIconEl, SBHeightIconEl],
+        .fromTo([SBTopIconEl, SBBottomIconEl, SBHeightIconEl],
             { opacity: 0, y: 15 },
             { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' }, '-=0.3');
 }
